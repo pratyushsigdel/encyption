@@ -147,7 +147,7 @@ const Input = <T extends FieldValues>({
                             )}
                         </div>
                         {error && (
-                            <p className="text-xs text-inputErrorTextColor">
+                            <p className="mt-1 text-sm text-red-500 font-medium">
                                 {error.message}
                             </p>
                         )}
