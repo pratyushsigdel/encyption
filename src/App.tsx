@@ -112,7 +112,6 @@ import KeyField from "./components/KeyField.tsx";
 import GlobalStyles from "./components/GlobalStyles.tsx"
 import {
   generateAESKey,
-  generateIV,
   encryptBody,
   encryptKey,
   decryptBody,
@@ -260,11 +259,9 @@ function App() {
   const onEncrypt = (data: any) => {
     if (!getPublicKey()) { alert("Set your public key in Settings first."); return; }
     const aesKey = generateAESKey();
-    const iv = generateIV();
     setEncryptResult(JSON.stringify({
-      encryptedBody: encryptBody(JSON.stringify(data?.encrypt), aesKey, iv),
+      encryptedBody: encryptBody(JSON.stringify(data?.encrypt), aesKey),
       encryptedKey: encryptKey(aesKey, getPublicKey()),
-      iv,
     }, null, 2));
   };
 
@@ -272,11 +269,11 @@ function App() {
     if (!getPrivateKey()) { alert("Set your private key in Settings first."); return; }
     try {
       const parsed = typeof data?.decrypt === "string" ? JSON.parse(data.decrypt) : data?.decrypt;
-      const { encryptedBody, encryptedKey, iv } = parsed;
-      if (!encryptedBody || !encryptedKey || !iv) { alert("Invalid payload — needs encryptedBody, encryptedKey, iv."); return; }
+      const { encryptedBody, encryptedKey} = parsed;
+      if (!encryptedBody || !encryptedKey ) { alert("Invalid payload — needs encryptedBody, encryptedKey"); return; }
       const dk = decryptKey(encryptedKey, getPrivateKey());
       if (!dk) { alert("Key decryption failed. Check your private key."); return; }
-      const body = decryptBody(encryptedBody, dk, iv);
+      const body = decryptBody(encryptedBody, dk);
       const p2 = typeof body === "string" ? JSON.parse(body) : body;
       setDecryptResult(typeof p2 === "object" ? JSON.stringify(p2, null, 2) : String(p2));
     } catch (err) { alert("Decryption failed. Check input and keys."); console.error(err); }

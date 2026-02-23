@@ -44,10 +44,10 @@ const ResultBox = ({
         </div>
         <button
           onClick={handleCopy}
-          className={`flex items-center gap-1.5 bg-transparent border-none cursor-pointer mono text-[10.5px] tracking-wide transition-colors duration-200
+          className={`flex items-center gap-1.5 bg-transparent border-none cursor-pointer mono text-sm  tracking-wide transition-colors duration-200
             ${copied ? "text-emerald-500" : isPurple ? "text-indigo-400 hover:text-indigo-600" : "text-pink-400 hover:text-pink-600"}`}
         >
-          {copied ? <Check size={20} /> : <Copy size={10} />}
+          {copied ? <Check size={20} /> : <Copy size={20} />}
           {copied ? "copied!" : "copy"}
         </button>
       </div>
