@@ -74,6 +74,8 @@ const deriveIV = (key: string) => {
     return CryptoJS.enc.Utf8.parse(key.substring(0, 16));
 };
 
+// Generate a random AES key (16 bytes)
+
 export const generateAESKey = () => {
     const array = new Uint8Array(16);
     crypto.getRandomValues(array);
@@ -82,17 +84,21 @@ export const generateAESKey = () => {
         .join("");
 };
 
+// Encrypt the AES key with RSA
 export const encryptKey = (data: string, publicKeyPEM: string) => {
     const encrypt = new JSEncrypt();
     encrypt.setPublicKey(publicKeyPEM);
     return encrypt.encrypt(data);
 };
 
+// Decrypt the AES key using RSA
 export const decryptKey = (encryptedKey: string, privateKeyPEM: string) => {
     const decrypt = new JSEncrypt();
     decrypt.setPrivateKey(privateKeyPEM);
     return decrypt.decrypt(encryptedKey);
 };
+
+// Encrypt the body data using AES
 
 export const encryptBody = (input: string, key: string) => {
     return CryptoJS.AES.encrypt(
@@ -105,6 +111,8 @@ export const encryptBody = (input: string, key: string) => {
         }
     ).toString();
 };
+
+// Decrypt the body data using AES
 
 export const decryptBody = (cipherText: string, key: string) => {
     const bytes = CryptoJS.AES.decrypt(

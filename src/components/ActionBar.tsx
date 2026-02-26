@@ -3,7 +3,6 @@ export default function ActionBar({
   onClear,
   btnClass = "",
   submitStyle = {},
-  clearAccent = "99,102,241",
 }: any) {
   return (
     <div className="flex gap-2.5">

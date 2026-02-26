@@ -24,9 +24,9 @@
 // }
 
 import Input from "./input";
-import { Eye, EyeOff } from "lucide-react";
 
-export default function KeyField({ name, control, label, show, onToggle, accent }: any) {
+
+export default function KeyField({ name, control, label, show,  accent }: any) {
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
